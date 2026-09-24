@@ -1,45 +1,52 @@
 #include <iostream>
+#include <string>
 using namespace std;
+
+// ==================================================
+// GRABCAR
+// ==================================================
+
+void grabCar()
+{
+    // Your GrabCar code here
+}
+
+
+// ==================================================
+// GRABEXPRESS
+// ==================================================
+
+void grabExpress()
+{
+    // Your GrabExpress code here
+}
+
+
+// ==================================================
+// MAIN MENU
+// ==================================================
+// ==================================================
+// GRABFOOD
+// ==================================================
+
+void grabFood()
+{
+    // Teammate's code
+}
+
+
+// ==================================================
+// HISTORY
+// ==================================================
+
+void history()
+{
+    // Teammate's code
+}
 
 int main()
 {
-    int choice;
-
-    cout << "=========================\n";
-    cout << "       GRAB SYSTEM\n";
-    cout << "=========================\n";
-    cout << "1. GrabCar\n";
-    cout << "2. GrabFood\n";
-    cout << "3. GrabExpress\n";
-    cout << "4. Exit\n";
-    cout << "=========================\n";
-
-    cout << "Choose: ";
-    cin >> choice;
-
-    if (choice == 1)
-    {
-        cout << "\nGrabCar selected!\n";
-        cout << "Booking confirmed.\n";
-    }
-    else if (choice == 2)
-    {
-        cout << "\nGrabFood selected!\n";
-        cout << "Order confirmed.\n";
-    }
-    else if (choice == 3)
-    {
-        cout << "\nGrabExpress selected!\n";
-        cout << "Delivery confirmed.\n";
-    }
-    else if (choice == 4)
-    {
-        cout << "\nThank you for using Grab!\n";
-    }
-    else
-    {
-        cout << "\nInvalid choice.\n";
-    }
+    // Your main menu code here
 
     return 0;
 }
