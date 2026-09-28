@@ -209,15 +209,144 @@ void grabCar()
 // ==================================================
 // GRABFOOD
 // ==================================================
-
 void grabFood()
 {
-    
+    string restaurant;
+    string deliveryAddress;
+    string itemName;
+    string promo;
+
+    double itemPrice = 0.00;
+    double deliveryFee = 0.00;
+    double discount = 0.00;
+    double subtotal;
+    double total;
+
+    int restaurantChoice;
+    int quantity;
+    int confirm;
+
     cout << "\n========================\n";
     cout << "       GRABFOOD\n";
     cout << "========================\n";
 
-    cout << "GrabFood module is being developed.\n";
+    // Select restaurant
+    cout << "Select restaurant:\n";
+    cout << "1. McDonald's\n";
+    cout << "2. KFC\n";
+    cout << "3. King Ayam Gepuk\n";
+    cout << "Choose: ";
+    cin >> restaurantChoice;
+
+    if (restaurantChoice == 1)
+    {
+        restaurant = "McDonald's";
+        itemPrice = 12.90;
+    }
+    else if (restaurantChoice == 2)
+    {
+        restaurant = "KFC";
+        itemPrice = 15.50;
+    }
+    else if (restaurantChoice == 3)
+    {
+        restaurant = "King Ayam Gepuk";
+        itemPrice = 6.50;
+    }
+    else
+    {
+        cout << "\nInvalid restaurant choice.\n";
+        return;
+    }
+
+    // Get item name (what they're ordering)
+    cout << "\nEnter item/order name (e.g. Set Meal A): ";
+    cin.ignore();
+    getline(cin, itemName);
+
+    // Get quantity
+    cout << "Enter quantity: ";
+    cin >> quantity;
+
+    if (quantity <= 0)
+    {
+        cout << "\nInvalid quantity.\n";
+        return;
+    }
+
+    // Get delivery address
+    cout << "Enter delivery address: ";
+    cin.ignore();
+    getline(cin, deliveryAddress);
+
+    // Flat delivery fee for GrabFood
+    deliveryFee = 3.00;
+
+    // Calculate subtotal
+    subtotal = (itemPrice * quantity) + deliveryFee;
+
+    // Promo code
+    cout << "\nEnter promo code (or enter NONE): ";
+    cin >> promo;
+
+    if (promo == "GRAB10")
+    {
+        discount = 10.00;
+
+        if (discount > subtotal)
+        {
+            discount = subtotal;
+        }
+
+        cout << "Promo code applied!\n";
+    }
+    else if (promo != "NONE")
+    {
+        cout << "Invalid promo code.\n";
+    }
+
+    // Calculate final total
+    total = subtotal - discount;
+
+    // Display order summary
+    cout << "\n========================\n";
+    cout << "       ORDER SUMMARY\n";
+    cout << "========================\n";
+
+    cout << "Restaurant: " << restaurant << endl;
+    cout << "Item: " << itemName << endl;
+    cout << "Quantity: " << quantity << endl;
+    cout << "Delivery address: " << deliveryAddress << endl;
+    cout << "Item price: RM " << itemPrice << " each" << endl;
+    cout << "Delivery fee: RM " << deliveryFee << endl;
+    cout << "Discount: RM " << discount << endl;
+
+    cout << "------------------------\n";
+    cout << "TOTAL: RM " << total << endl;
+
+    // Confirm order
+    cout << "\n1. Confirm Order\n";
+    cout << "2. Cancel\n";
+    cout << "Choose: ";
+    cin >> confirm;
+
+    if (confirm == 1)
+    {
+        cout << "\nGrabFood order confirmed!\n";
+        cout << "Estimated delivery time: 20-40 minutes.\n";
+
+        // Log to history
+        ostringstream oss;
+        oss << fixed << setprecision(2);
+        oss << "[GrabFood] " << restaurant << " - " << itemName
+            << " x" << quantity << " | " << deliveryAddress
+            << " | TOTAL: RM " << total;
+        bookingHistory.push_back(oss.str());
+    }
+    else
+    {
+        cout << "\nGrabFood order cancelled.\n";
+    }
 }
 
 
@@ -387,12 +516,23 @@ void grabExpress()
 
 void history()
 {
-    // Teammate will add History code here
-
     cout << "\n========================\n";
     cout << "        HISTORY\n";
     cout << "========================\n";
 
-    cout << "History module is being developed.\n";
+    if (bookingHistory.empty())
+    {
+        cout << "No bookings or orders yet.\n";
+        return;
+    }
+
+    for (int i = 0; i < (int)bookingHistory.size(); i++)
+    {
+        cout << (i + 1) << ". " << bookingHistory[i] << endl;
+    }
+
+    cout << "------------------------\n";
+    cout << "Total records: " << bookingHistory.size() << endl;
 }
+
 
