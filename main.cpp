@@ -1,6 +1,9 @@
-
 #include <iostream>
 #include <string>
+#include <vector>
+#include <sstream>
+#include <iomanip>
+
 using namespace std;
 
 // ==================================================
@@ -12,9 +15,13 @@ void grabFood();
 void grabExpress();
 void history();
 
+// Store all confirmed bookings/orders
+vector<string> bookingHistory;
+
+
 // ==================================================
 // MAIN MENU
-// ==================================================   
+// ==================================================
 
 int main()
 {
@@ -186,7 +193,7 @@ void grabCar()
     cout << "Discount: RM " << discount << endl;
 
     cout << "------------------------\n";
-    cout << "TOTAL: RM " << total << endl;
+    cout << "TOTAL: RM " << fixed << setprecision(2) << total << endl;
 
     // Confirm booking
     cout << "\n1. Confirm Booking\n";
@@ -198,6 +205,17 @@ void grabCar()
     {
         cout << "\nGrabCar booking confirmed!\n";
         cout << "Estimated arrival time: 5-10 minutes.\n";
+
+        // Store booking in history
+        ostringstream oss;
+        oss << fixed << setprecision(2);
+
+        oss << "[GrabCar] "
+            << pickup << " -> " << destination
+            << " | " << carType
+            << " | TOTAL: RM " << total;
+
+        bookingHistory.push_back(oss.str());
     }
     else
     {
@@ -209,6 +227,7 @@ void grabCar()
 // ==================================================
 // GRABFOOD
 // ==================================================
+
 void grabFood()
 {
     string restaurant;
@@ -259,7 +278,7 @@ void grabFood()
         return;
     }
 
-    // Get item name (what they're ordering)
+    // Get item name
     cout << "\nEnter item/order name (e.g. Set Meal A): ";
     cin.ignore();
     getline(cin, itemName);
@@ -279,7 +298,7 @@ void grabFood()
     cin.ignore();
     getline(cin, deliveryAddress);
 
-    // Flat delivery fee for GrabFood
+    // Flat delivery fee
     deliveryFee = 3.00;
 
     // Calculate subtotal
@@ -322,7 +341,7 @@ void grabFood()
     cout << "Discount: RM " << discount << endl;
 
     cout << "------------------------\n";
-    cout << "TOTAL: RM " << total << endl;
+    cout << "TOTAL: RM " << fixed << setprecision(2) << total << endl;
 
     // Confirm order
     cout << "\n1. Confirm Order\n";
@@ -335,12 +354,16 @@ void grabFood()
         cout << "\nGrabFood order confirmed!\n";
         cout << "Estimated delivery time: 20-40 minutes.\n";
 
-        // Log to history
+        // Store order in history
         ostringstream oss;
         oss << fixed << setprecision(2);
-        oss << "[GrabFood] " << restaurant << " - " << itemName
-            << " x" << quantity << " | " << deliveryAddress
+
+        oss << "[GrabFood] "
+            << restaurant << " - " << itemName
+            << " x" << quantity
+            << " | " << deliveryAddress
             << " | TOTAL: RM " << total;
+
         bookingHistory.push_back(oss.str());
     }
     else
@@ -373,7 +396,6 @@ void grabExpress()
     int packageChoice;
     int deliveryChoice;
     int confirm;
-
 
     cout << "\n========================\n";
     cout << "      GRABEXPRESS\n";
@@ -490,7 +512,7 @@ void grabExpress()
     cout << "Discount: RM " << discount << endl;
 
     cout << "------------------------\n";
-    cout << "TOTAL: RM " << total << endl;
+    cout << "TOTAL: RM " << fixed << setprecision(2) << total << endl;
 
     // Confirm delivery
     cout << "\n1. Confirm Delivery\n";
@@ -502,6 +524,18 @@ void grabExpress()
     {
         cout << "\nGrabExpress delivery confirmed!\n";
         cout << "Estimated delivery time: 30-60 minutes.\n";
+
+        // Store delivery in history
+        ostringstream oss;
+        oss << fixed << setprecision(2);
+
+        oss << "[GrabExpress] "
+            << pickup << " -> " << destination
+            << " | " << packageType
+            << " | " << deliveryType
+            << " | TOTAL: RM " << total;
+
+        bookingHistory.push_back(oss.str());
     }
     else
     {
@@ -528,11 +562,11 @@ void history()
 
     for (int i = 0; i < (int)bookingHistory.size(); i++)
     {
-        cout << (i + 1) << ". " << bookingHistory[i] << endl;
+        cout << (i + 1) << ". "
+             << bookingHistory[i] << endl;
     }
 
     cout << "------------------------\n";
-    cout << "Total records: " << bookingHistory.size() << endl;
-}
-
-
+    cout << "Total records: "
+         << bookingHistory.size() << endl;
+} 
